@@ -710,7 +710,7 @@ function showScreen(id){
 }
 
 function renderCrumbs(){
-  let parts = [{label:"الدفعات", action:() => goBatches()}];
+  let parts = [{label:"الاقسام", action:() => goBatches()}];
   if(state.batch) parts.push({label: state.batch.name, action: () => goSubjects(state.batch.id)});
   if(state.subject) parts.push({label: state.subject.name, action: null});
 
