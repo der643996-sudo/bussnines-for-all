@@ -3,624 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bussnines for all</title>
+<meta name="theme-color" content="#2C4257">
+<title>Business for all</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Markazi+Text:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Markazi+Text:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  /* ========== THEME: ACADEMIC / CALM ========== */
-  :root{
-    --paper:#F4F1EA;
-    --paper-2:#EDE9DF;
-    --surface:#FBF9F4;
-    --surface-2:#FFFFFF;
-    --line:#DCD5C4;
-    --line-soft:#E8E2D3;
-
-    --ink:#2A2C2E;
-    --ink-soft:#5C5F63;
-    --ink-faint:#8B8E92;
-
-    --navy:#2C4257;
-    --navy-deep:#1E2E3D;
-    --navy-soft:#E4EAF0;
-
-    --gold:#A88B4E;
-    --gold-deep:#8A6F38;
-    --gold-soft:#F2EBD9;
-
-    --olive:#6B7355;
-
-    --radius:12px;
-    --radius-lg:16px;
-    --shadow:0 1px 2px rgba(42,44,46,.04), 0 10px 24px -14px rgba(42,44,46,.15);
-    --shadow-lift:0 4px 8px rgba(42,44,46,.05), 0 20px 40px -18px rgba(42,44,46,.22);
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{height:100%;}
-  body{
-    font-family:'IBM Plex Sans Arabic', sans-serif;
-    background:
-      radial-gradient(900px 400px at 85% -5%, rgba(44,66,87,.05), transparent 60%),
-      radial-gradient(700px 350px at 0% 0%, rgba(168,139,78,.06), transparent 55%),
-      var(--paper);
-    color:var(--ink);
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    overflow-x:hidden;
-    line-height:1.6;
-  }
-  ::selection{background:var(--gold-soft); color:var(--navy-deep);}
-  :focus-visible{outline:2px solid var(--navy); outline-offset:3px;}
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
-  }
-
-  /* ========== TOP BAR ========== */
-  header{
-    padding:24px clamp(20px,5vw,72px) 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:18px;
-    border-bottom:1px solid var(--line-soft);
-    background:rgba(244,241,234,.85);
-    backdrop-filter:blur(10px);
-    position:sticky;
-    top:0;
-    z-index:20;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-  .brand-mark{
-    width:44px; height:44px;
-    border-radius:50%;
-    background:var(--navy);
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    border:1px solid var(--navy-deep);
-    box-shadow:inset 0 0 0 3px rgba(255,255,255,.06);
-  }
-  .brand-mark svg{width:20px; height:20px; stroke:var(--gold-soft);}
-  .brand-text{display:flex; flex-direction:column; line-height:1.2;}
-  .brand-name{
-    font-family:'Markazi Text', serif;
-    font-weight:700;
-    font-size:23px;
-    letter-spacing:.3px;
-    color:var(--navy-deep);
-  }
-  .brand-tag{
-    font-family:'Amiri', serif;
-    font-size:12px;
-    color:var(--gold-deep);
-    letter-spacing:2px;
-    font-weight:700;
-    text-transform:uppercase;
-  }
-
-  nav.crumbs{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    font-size:13.5px;
-    color:var(--ink-faint);
-    flex-wrap:wrap;
-  }
-  nav.crumbs .crumb{
-    cursor:pointer;
-    padding:7px 13px;
-    border-radius:8px;
-    transition:background .18s ease, color .18s ease;
-    white-space:nowrap;
-  }
-  nav.crumbs .crumb:hover{background:var(--surface); color:var(--navy);}
-  nav.crumbs .crumb.current{
-    color:var(--navy-deep);
-    font-weight:600;
-    cursor:default;
-    background:var(--gold-soft);
-  }
-  nav.crumbs .crumb.current:hover{background:var(--gold-soft);}
-  nav.crumbs .sep{color:var(--line); font-size:12px; margin:0 2px;}
-
-  /* ========== MAIN ========== */
-  main{
-    flex:1;
-    padding:10px clamp(20px,5vw,72px) 80px;
-    position:relative;
-    max-width:1180px;
-    width:100%;
-    margin:0 auto;
-  }
-
-  .screen{display:none;}
-  .screen.active{display:block; animation:rise .5s cubic-bezier(.22,.61,.36,1);}
-  @keyframes rise{
-    from{opacity:0; transform:translateY(14px);}
-    to{opacity:1; transform:translateY(0);}
-  }
-
-  .screen-head{
-    margin:36px 0 36px;
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:24px;
-    flex-wrap:wrap;
-    padding-bottom:20px;
-    border-bottom:1px solid var(--line-soft);
-  }
-  .screen-title{
-    font-family:'Markazi Text', serif;
-    font-size:clamp(30px,4.2vw,44px);
-    font-weight:700;
-    letter-spacing:.2px;
-    color:var(--navy-deep);
-    line-height:1.15;
-  }
-  .screen-title::after{
-    content:"";
-    display:block;
-    width:48px;
-    height:3px;
-    background:var(--gold);
-    margin-top:12px;
-    border-radius:2px;
-  }
-  .screen-sub{
-    margin-top:12px;
-    color:var(--ink-soft);
-    font-size:15.5px;
-    max-width:52ch;
-    font-family:'Amiri', serif;
-    font-size:17px;
-  }
-
-  /* ========== CARD GRID ========== */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(250px,1fr));
-    gap:20px;
-  }
-  .card{
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:var(--radius-lg);
-    padding:0;
-    cursor:pointer;
-    text-align:right;
-    transition:transform .24s cubic-bezier(.22,.61,.36,1), box-shadow .24s ease, border-color .24s ease;
-    position:relative;
-    overflow:hidden;
-    opacity:0;
-    animation:cardIn .55s cubic-bezier(.22,.61,.36,1) forwards;
-  }
-  .grid .card:nth-child(1){animation-delay:.02s;}
-  .grid .card:nth-child(2){animation-delay:.07s;}
-  .grid .card:nth-child(3){animation-delay:.12s;}
-  .grid .card:nth-child(4){animation-delay:.17s;}
-  .grid .card:nth-child(5){animation-delay:.22s;}
-  .grid .card:nth-child(6){animation-delay:.27s;}
-  @keyframes cardIn{
-    from{opacity:0; transform:translateY(12px);}
-    to{opacity:1; transform:translateY(0);}
-  }
-  .card::before{
-    content:"";
-    position:absolute;
-    inset-inline-start:0; top:0; bottom:0;
-    width:4px;
-    background:var(--gold);
-    transform:scaleY(0);
-    transform-origin:top;
-    transition:transform .3s ease;
-  }
-  .card:hover, .card:focus-visible{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow-lift);
-    border-color:#CFC7B2;
-  }
-  .card:hover::before, .card:focus-visible::before{transform:scaleY(1);}
-  .card-inner{padding:26px 24px 24px;}
-  .card .icon{
-    width:46px; height:46px;
-    border-radius:50%;
-    background:var(--navy-soft);
-    display:flex; align-items:center; justify-content:center;
-    margin-bottom:20px;
-    border:1px solid #D6DEE7;
-  }
-  .card .icon svg{width:20px; height:20px; stroke:var(--navy);}
-  .card .name{
-    font-family:'Markazi Text', serif;
-    font-size:19px;
-    font-weight:700;
-    line-height:1.35;
-    color:var(--navy-deep);
-  }
-  .card .meta{
-    margin-top:8px;
-    font-size:13px;
-    color:var(--ink-faint);
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-  .card .meta::before{
-    content:"";
-    width:5px; height:5px;
-    border-radius:50%;
-    background:var(--gold);
-    display:inline-block;
-  }
-
-  /* ========== FILE LIST ========== */
-  .file-count{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    padding:9px 18px;
-    border-radius:999px;
-    font-size:13.5px;
-    color:var(--ink-soft);
-  }
-  .file-count strong{color:var(--navy-deep); font-weight:700; font-size:15px;}
-
-  .file-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-  .file-row{
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:18px 20px;
-    display:flex;
-    align-items:center;
-    gap:16px;
-    transition:border-color .2s ease, box-shadow .2s ease;
-    opacity:0;
-    animation:cardIn .5s cubic-bezier(.22,.61,.36,1) forwards;
-    position:relative;
-  }
-  .file-list .file-row:nth-child(1){animation-delay:.02s;}
-  .file-list .file-row:nth-child(2){animation-delay:.06s;}
-  .file-list .file-row:nth-child(3){animation-delay:.10s;}
-  .file-list .file-row:nth-child(4){animation-delay:.14s;}
-  .file-list .file-row:nth-child(5){animation-delay:.18s;}
-  .file-list .file-row:nth-child(6){animation-delay:.22s;}
-  .file-row:hover{
-    border-color:#CFC7B2;
-    box-shadow:var(--shadow);
-  }
-  .file-row .f-icon{
-    width:44px; height:44px;
-    border-radius:10px;
-    background:var(--navy);
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    position:relative;
-  }
-  .file-row .f-icon svg{width:18px; height:18px; stroke:#F4F1EA;}
-  .file-row .f-tag{
-    position:absolute;
-    bottom:-6px; left:-6px;
-    background:var(--gold);
-    color:#fff;
-    font-size:8px;
-    font-weight:700;
-    letter-spacing:.5px;
-    padding:2px 5px;
-    border-radius:4px;
-    line-height:1.4;
-  }
-  .file-row .f-body{flex:1; min-width:0;}
-  .file-row .f-name{
-    font-family:'Markazi Text', serif;
-    font-size:17px;
-    font-weight:600;
-    line-height:1.35;
-    color:var(--navy-deep);
-  }
-  .file-row .f-meta{
-    margin-top:4px;
-    font-size:12.5px;
-    color:var(--ink-faint);
-  }
-
-  .f-actions{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    flex-shrink:0;
-  }
-  .f-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
-    font-family:inherit;
-    font-size:12.5px;
-    font-weight:600;
-    padding:8px 15px;
-    border-radius:8px;
-    cursor:pointer;
-    white-space:nowrap;
-    transition:background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
-    border:1px solid transparent;
-    letter-spacing:.2px;
-  }
-  .f-btn svg{width:13px; height:13px; flex-shrink:0;}
-  .f-btn:active{transform:scale(.97);}
-  .f-btn.view{
-    background:var(--navy);
-    color:#F4F1EA;
-  }
-  .f-btn.view:hover{background:var(--navy-deep);}
-  .f-btn.attach{
-    background:transparent;
-    border-color:var(--line);
-    color:var(--ink-soft);
-  }
-  .f-btn.attach:hover{
-    border-color:var(--gold);
-    color:var(--gold-deep);
-    background:var(--gold-soft);
-  }
-  .f-btn.attach .a-badge{
-    background:var(--gold);
-    color:#fff;
-    font-size:10px;
-    font-weight:700;
-    width:17px; height:17px;
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-  }
-
-  /* empty state */
-  .empty{
-    text-align:center;
-    padding:90px 20px;
-    color:var(--ink-faint);
-  }
-  .empty svg{width:48px; height:48px; stroke:var(--line); margin-bottom:18px;}
-  .empty p{
-    font-family:'Amiri', serif;
-    font-size:17px;
-    color:var(--ink-soft);
-  }
-
-  /* ========== MODALS ========== */
-  .overlay{
-    position:fixed; inset:0;
-    background:rgba(30,46,61,.55);
-    backdrop-filter:blur(4px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:50;
-    padding:30px;
-  }
-  .overlay.active{display:flex; animation:fadeIn .22s ease;}
-  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
-  .modal-box{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius-lg);
-    width:min(940px, 100%);
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-    box-shadow:0 30px 70px -20px rgba(30,46,61,.4), 0 0 0 1px rgba(255,255,255,.5);
-    animation:viewerIn .32s cubic-bezier(.22,.61,.36,1);
-  }
-  #viewerOverlay .modal-box{height:min(88vh, 800px);}
-  #attachOverlay .modal-box{max-height:min(80vh, 640px);}
-  @keyframes viewerIn{
-    from{opacity:0; transform:scale(.97) translateY(8px);}
-    to{opacity:1; transform:scale(1) translateY(0);}
-  }
-  .modal-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:16px 22px;
-    border-bottom:1px solid var(--line);
-    background:var(--surface-2);
-    flex-shrink:0;
-  }
-  .modal-top .m-title{
-    font-family:'Markazi Text', serif;
-    font-size:17px;
-    font-weight:700;
-    color:var(--navy-deep);
-  }
-  .m-close{
-    width:34px; height:34px;
-    border-radius:8px;
-    border:1px solid var(--line);
-    background:var(--paper);
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
-    color:var(--ink-soft);
-    transition:background .18s ease, color .18s ease, border-color .18s ease;
-    flex-shrink:0;
-  }
-  .m-close:hover{
-    background:var(--navy);
-    color:var(--paper);
-    border-color:var(--navy);
-  }
-  .viewer-body{flex:1; background:#E8E4DA;}
-  .viewer-body iframe{width:100%; height:100%; border:none;}
-
-  .attach-body{
-    padding:18px 22px 22px;
-    overflow-y:auto;
-    display:flex;
-    flex-direction:column;
-    gap:11px;
-  }
-  .attach-row{
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:14px 17px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    transition:border-color .18s ease, background .18s ease;
-  }
-  .attach-row:hover{border-color:#CFC7B2; background:var(--paper);}
-  .attach-row .a-name{
-    font-size:14.5px;
-    font-weight:500;
-    display:flex;
-    align-items:center;
-    gap:11px;
-    min-width:0;
-    color:var(--navy-deep);
-  }
-  .attach-row .a-name .a-icon{
-    width:34px; height:34px;
-    border-radius:8px;
-    background:var(--gold-soft);
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    border:1px solid #E2D6B8;
-  }
-  .attach-row .a-name .a-icon svg{width:15px; height:15px; stroke:var(--gold-deep);}
-  .attach-row .a-name span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-  .attach-row a.a-download{
-    font-size:13px;
-    color:var(--navy);
-    font-weight:600;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    text-decoration:none;
-    padding:8px 14px;
-    border-radius:8px;
-    border:1px solid var(--line);
-    flex-shrink:0;
-    transition:background .18s ease, border-color .18s ease, color .18s ease;
-  }
-  .attach-row a.a-download:hover{
-    background:var(--navy);
-    border-color:var(--navy);
-    color:var(--paper);
-  }
-  .attach-row a.a-download svg{width:14px; height:14px;}
-
-  footer{
-    padding:24px clamp(20px,5vw,72px) 36px;
-    color:var(--ink-faint);
-    font-size:13px;
-    text-align:center;
-    border-top:1px solid var(--line-soft);
-    font-family:'Amiri', serif;
-  }
-  footer span{color:var(--gold); margin:0 8px;}
-
-  @media (max-width:560px){
-    .screen-head{flex-direction:column; align-items:flex-start;}
-    header{flex-direction:column; align-items:flex-start; gap:12px;}
-    nav.crumbs{width:100%;}
-    .file-row{align-items:flex-start;}
-    .f-btn{font-size:12px; padding:7px 12px;}
-  }
+:root{--paper:#F4F1EA;--surface:#FBF9F4;--surface-2:#FFF;--line:#DCD5C4;--line-soft:#E8E2D3;--ink:#2A2C2E;--ink-soft:#5C5F63;--ink-faint:#8B8E92;--navy:#2C4257;--navy-deep:#1E2E3D;--navy-soft:#E4EAF0;--gold:#A88B4E;--gold-deep:#8A6F38;--gold-soft:#F2EBD9;--ok:#4F7A4A;--hdr:rgba(244,241,234,.88);--r:12px;--rl:16px;--sh:0 1px 2px rgba(42,44,46,.04),0 10px 24px -14px rgba(42,44,46,.15);--lift:0 4px 8px rgba(42,44,46,.05),0 20px 40px -18px rgba(42,44,46,.22)}
+[data-theme=dark]{--paper:#15191E;--surface:#1B2027;--surface-2:#20262E;--line:#333B46;--line-soft:#2A313A;--ink:#E7E4DC;--ink-soft:#B3B6BA;--ink-faint:#8A8F96;--navy:#4A6C8C;--navy-deep:#DCE6F0;--navy-soft:#26354A;--gold:#C2A35E;--gold-deep:#D4B873;--gold-soft:#2E2819;--ok:#8DBB86;--hdr:rgba(21,25,30,.88)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;line-height:1.6;transition:background .25s,color .25s}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+header{padding:16px clamp(20px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line-soft);background:var(--hdr);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none}
+.brand-mark{width:42px;height:42px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#F2EBD9;flex-shrink:0}
+.brand-mark svg{width:20px;height:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-name{font-family:'Markazi Text',serif;font-weight:700;font-size:23px;color:var(--navy-deep)}
+.brand-tag{font-family:'Amiri',serif;font-size:12px;color:var(--gold-deep);letter-spacing:2px;font-weight:700;text-transform:uppercase}
+.tools{display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;min-width:240px}
+.search{position:relative;flex:1;max-width:340px}
+.search input{width:100%;font:inherit;font-size:14px;padding:9px 38px 9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink)}
+.search svg{position:absolute;inset-inline-start:auto;right:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint);pointer-events:none}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold-deep)}
+.icon-btn svg{width:17px;height:17px}
+nav.crumbs{display:flex;align-items:center;gap:4px;font-size:13.5px;color:var(--ink-faint);flex-wrap:wrap;width:100%;margin-top:2px}
+.crumb{cursor:pointer;padding:6px 12px;border-radius:8px;white-space:nowrap}
+.crumb:hover{background:var(--surface);color:var(--navy-deep)}
+.crumb.current{color:var(--navy-deep);font-weight:600;cursor:default;background:var(--gold-soft)}
+.sep{color:var(--line)}
+main{flex:1;padding:10px clamp(20px,5vw,72px) 80px;max-width:1180px;width:100%;margin:0 auto}
+.screen{display:none}
+.screen.active{display:block;animation:rise .45s cubic-bezier(.22,.61,.36,1)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.screen-head{margin:30px 0;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line-soft)}
+.screen-title{font-family:'Markazi Text',serif;font-size:clamp(30px,4.2vw,44px);font-weight:700;color:var(--navy-deep);line-height:1.15}
+.screen-title::after{content:"";display:block;width:48px;height:3px;background:var(--gold);margin-top:12px;border-radius:2px}
+.screen-sub{margin-top:12px;color:var(--ink-soft);max-width:52ch;font-family:'Amiri',serif;font-size:17px}
+.resume{display:flex;align-items:center;gap:10px;margin-bottom:22px;padding:14px 18px;border:1px dashed var(--gold);background:var(--gold-soft);border-radius:var(--r);color:var(--navy-deep);text-decoration:none;font-size:14.5px}
+.resume b{color:var(--gold-deep)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--rl);cursor:pointer;position:relative;overflow:hidden;transition:transform .24s,box-shadow .24s,border-color .24s;animation:rise .5s both;animation-delay:calc(var(--n,0)*50ms)}
+.card::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:4px;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .3s}
+.card:hover,.card:focus-visible{transform:translateY(-4px);box-shadow:var(--lift)}
+.card:hover::before,.card:focus-visible::before{transform:scaleY(1)}
+.card-inner{padding:26px 24px 24px}
+.icon{width:46px;height:46px;border-radius:50%;background:var(--navy-soft);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:20px;border:1px solid var(--line)}
+.dark .icon,[data-theme=dark] .icon{color:var(--navy-deep)}
+.icon svg{width:20px;height:20px}
+.name{font-family:'Markazi Text',serif;font-size:19px;font-weight:700;line-height:1.35;color:var(--navy-deep)}
+.meta{margin-top:8px;font-size:13px;color:var(--ink-faint);display:flex;align-items:center;gap:6px}
+.meta::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.file-count{background:var(--surface-2);border:1px solid var(--line);padding:9px 18px;border-radius:999px;font-size:13.5px;color:var(--ink-soft)}
+.file-count strong{color:var(--navy-deep);font-size:15px}
+.file-list{display:flex;flex-direction:column;gap:12px}
+.file-row{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:16px;transition:border-color .2s,box-shadow .2s;animation:rise .45s both;animation-delay:calc(var(--n,0)*40ms)}
+.file-row:hover{border-color:var(--gold);box-shadow:var(--sh)}
+.f-icon{width:44px;height:44px;border-radius:10px;background:var(--navy);color:#F4F1EA;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.f-icon svg{width:18px;height:18px}
+.f-tag{position:absolute;bottom:-6px;left:-6px;background:var(--gold);color:#fff;font-size:8px;font-weight:700;padding:2px 5px;border-radius:4px;line-height:1.4}
+.f-body{flex:1;min-width:0}
+.f-name{font-family:'Markazi Text',serif;font-size:17px;font-weight:600;color:var(--navy-deep)}
+.f-meta{margin-top:3px;font-size:12.5px;color:var(--ink-faint)}
+.ok{color:var(--ok);font-weight:600}
+.f-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.f-btn{display:flex;align-items:center;justify-content:center;gap:7px;font:inherit;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;border:1px solid var(--line);background:transparent;color:var(--ink-soft);text-decoration:none;transition:.18s}
+.f-btn svg{width:13px;height:13px}
+.f-btn:hover{border-color:var(--gold);color:var(--gold-deep);background:var(--gold-soft)}
+.f-btn.view{background:var(--navy);border-color:var(--navy);color:#F4F1EA}
+.f-btn.view:hover{filter:brightness(1.15);color:#F4F1EA;background:var(--navy)}
+.empty{text-align:center;padding:80px 20px;color:var(--ink-soft);font-family:'Amiri',serif;font-size:17px}
+.overlay{position:fixed;inset:0;background:rgba(15,24,32,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
+.overlay.active{display:flex;animation:rise .22s}
+.modal-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);width:min(940px,100%);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.45)}
+#viewerOverlay .modal-box{height:min(88vh,800px)}
+#attachOverlay .modal-box{max-height:min(80vh,640px)}
+.modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+.m-title{font-family:'Markazi Text',serif;font-size:17px;font-weight:700;color:var(--navy-deep);flex:1;min-width:120px}
+.m-acts{display:flex;gap:8px;align-items:center}
+.viewer-body{flex:1;background:var(--paper);position:relative}
+.viewer-body iframe{width:100%;height:100%;border:none;position:relative;z-index:1}
+.viewer-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--ink-soft);font-size:14px}
+.attach-body{padding:18px 22px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:11px}
+.attach-row{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:var(--navy-deep);font-weight:600;font-size:14.5px}
+footer{padding:24px;color:var(--ink-faint);font-size:13px;text-align:center;border-top:1px solid var(--line-soft);font-family:'Amiri',serif}
+footer span{color:var(--gold);margin:0 8px}
+@media (max-width:620px){.file-row{flex-wrap:wrap}.f-actions{width:100%;justify-content:flex-start}.screen-head{flex-direction:column;align-items:flex-start}.search{max-width:none}}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="brand">
-    <div class="brand-mark">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-    </div>
-    <div class="brand-text">
-      <span class="brand-name">Bussnines for all</span>
-      <span class="brand-tag">Academic Library</span>
-    </div>
+  <a class="brand" href="#"><div class="brand-mark" id="logo"></div><div class="brand-text"><span class="brand-name">Business for all</span><span class="brand-tag">Academic Library</span></div></a>
+  <div class="tools">
+    <div class="search"><input id="q" type="search" placeholder="ابحث عن محاضرة أو مادة…" aria-label="بحث" autocomplete="off"><span id="sIco"></span></div>
+    <button class="icon-btn" id="theme" aria-label="تبديل الوضع الليلي" title="الوضع الليلي"></button>
   </div>
-  <nav class="crumbs" id="crumbs"></nav>
+  <nav class="crumbs" id="crumbs" aria-label="مسار التنقل"></nav>
 </header>
 
 <main>
-
-  <!-- شاشة 1: الدفعات -->
   <section class="screen active" id="screen-batches">
-    <div class="screen-head">
-      <div>
-        <div class="screen-title">اختر قسم</div>
-        <div class="screen-sub">حدد قسم للوصول إلى المواد الخاصة بها</div>
-      </div>
-    </div>
-    <div class="grid" id="batchGrid"></div>
+    <div class="screen-head"><div><div class="screen-title">اختر قسم</div><div class="screen-sub">حدد قسم للوصول إلى المواد الخاصة بها</div></div></div>
+    <div id="resume"></div><div class="grid" id="batchGrid"></div>
   </section>
-
-  <!-- شاشة 2: المواد -->
   <section class="screen" id="screen-subjects">
-    <div class="screen-head">
-      <div>
-        <div class="screen-title" id="subjectsTitle">المواد</div>
-        <div class="screen-sub">اختر المادة لعرض الملفات المتاحة</div>
-      </div>
-    </div>
+    <div class="screen-head"><div><div class="screen-title" id="subjectsTitle"></div><div class="screen-sub">اختر المادة لعرض الملفات المتاحة</div></div></div>
     <div class="grid" id="subjectGrid"></div>
   </section>
-
-  <!-- شاشة 3: الملفات -->
   <section class="screen" id="screen-files">
-    <div class="screen-head">
-      <div>
-        <div class="screen-title" id="filesTitle">الملفات</div>
-      </div>
-      <div class="file-count" id="fileCount"></div>
-    </div>
+    <div class="screen-head"><div class="screen-title" id="filesTitle"></div><div class="file-count" id="fileCount"></div></div>
     <div class="file-list" id="fileList"></div>
   </section>
-
+  <section class="screen" id="screen-search">
+    <div class="screen-head"><div class="screen-title">نتائج البحث</div><div class="file-count" id="searchCount"></div></div>
+    <div class="file-list" id="searchList"></div>
+  </section>
 </main>
 
-<footer>Bussnines for all <span>◆</span></footer>
+<footer>Business for all <span>◆</span></footer>
 
-<!-- PDF Viewer -->
 <div class="overlay" id="viewerOverlay">
   <div class="modal-box">
     <div class="modal-top">
       <span class="m-title" id="viewerTitle"></span>
-      <button class="m-close" id="viewerClose" aria-label="إغلاق">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
+      <div class="m-acts" id="viewerActs"></div>
+      <button class="icon-btn" id="viewerClose" aria-label="إغلاق"></button>
     </div>
-    <div class="viewer-body">
-      <iframe id="viewerFrame" src="" allow="autoplay"></iframe>
-    </div>
+    <div class="viewer-body"><div class="viewer-note">لو الملف مش بيظهر، استخدم «فتح في تبويب جديد» أو «تحميل».</div><iframe id="viewerFrame" src="about:blank" allow="autoplay" title="عرض الملف"></iframe></div>
   </div>
 </div>
 
-<!-- الملفات الإضافية -->
 <div class="overlay" id="attachOverlay">
   <div class="modal-box">
-    <div class="modal-top">
-      <span class="m-title" id="attachTitle">الملفات الإضافية</span>
-      <button class="m-close" id="attachClose" aria-label="إغلاق">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
+    <div class="modal-top"><span class="m-title" id="attachTitle"></span><button class="icon-btn" id="attachClose" aria-label="إغلاق"></button></div>
     <div class="attach-body" id="attachList"></div>
   </div>
 </div>
@@ -628,251 +147,245 @@
 <script>
 /* =========================================================
    البيانات — عدّل هنا فقط
-   driveId = المعرف الخاص بالملف على Google Drive
+   driveId: ممكن تحط الـ ID أو الرابط كامل (الكود بيستخرج الـ ID لوحده)
+   type (اختياري): lec = محاضرة (الافتراضي) | quiz = كويز | sum = ملخص | rec = تسجيل
+   attachments (اختياري): [{ name, driveId }]
 ========================================================= */
 const DATA = {
-  batches: [
-    {
-      id: "b2027",
-      name: "Business Department(2027/2026)",
-      subjects: [
-        {
-          id: "mis",
-          name: "MANAGEMENT INFORMATION SYSTEM (MIS)",
-          files: [
-            {
-              name: "Lec 1",
-              driveId: "1cqB8x6aigTanHfh5IPWes1AJtiXF_hxt",
-            /*  attachments: [
-                { name: "Record", driveId: "1kBHTbLeIHM6SL5yq4iHSALPC6JUXrBru&export=download&authuser=1&confirm=t&uuid=002c2698-19b8-4508-aead-573fa10ccd42&at=AMrWOn3QMfq6gL8w0glV0r1yzk-v:1789491856797" },
-                { name: "Quiz 1", driveId: "REPLACE_WITH_ATTACH_ID_2" }
-              ] */
-            },
-            { name: "lec 2", driveId: "1Vg6HHyVwI5DB2K7jNo5CS6_lRhv5zFzy" },
-            { name: "lec 3", driveId: "1W3Yqrvg-oUVIbFbbgnl5Q59s7SHcB8ST" },
-            { name: "lec 4", driveId: "1_rcBtUpXiGuuZk1bCr3I39bup0SjhBmO" }
-          ]
-        },
-
-
-
-        
-        {
-          id: "od",
-          name: "ORGANIZATIONAL ANALYSIS AND DESIGN (OD)",
-          files: [
-            { name: "Chapter 1", driveId: "1thqy8nJl2tzAcXb0FCNUSbkzSIy94GuV" },
-            { name: "Chapter 2", driveId: "1MQVfHgsF1yY6C_g4A4ImmBykc4JXkyE8" },
-            { name: "Chapter 3", driveId: "1IwqwrOtthxUOaBxLsRMZRa7phmxYBBVB" }
-          ]
-        },
-
-
-
-        
-        {
-          id: "ib",
-          name: "International Business (IB)",
-          files: [
-    { name: "Chapter 1", driveId: "1XBRZnGcao0d5Ra-DFHYwFVwZCEDZ65S_" },
-            { name: "Chapter 2", driveId: "1MHmS-2cUEx_WFlbNBKwt8RUzQDrOVrsY" },
-            { name: "Chapter 3", driveId: "1-wVtG-hn4xGwHW9Yln0PbbHllrH0QRZw" }
-            
-          ]
-        }
-
-
-
-
-
-
-
-
-        
-      ]
-    },
-  ]
+  batches: [{
+    id: "b2027",
+    name: "Business Department (2026/2027)",
+    subjects: [
+      { id: "mis", name: "MANAGEMENT INFORMATION SYSTEM (MIS)", files: [
+        { name: "Lec 1", driveId: "1cqB8x6aigTanHfh5IPWes1AJtiXF_hxt",
+          attachments: [{ name: "Record", driveId: "1kBHTbLeIHM6SL5yq4iHSALPC6JUXrBru" }] },
+        { name: "Lec 2", driveId: "1Vg6HHyVwI5DB2K7jNo5CS6_lRhv5zFzy" },
+        { name: "Lec 3", driveId: "1W3Yqrvg-oUVIbFbbgnl5Q59s7SHcB8ST" },
+        { name: "Lec 4", driveId: "1_rcBtUpXiGuuZk1bCr3I39bup0SjhBmO" }
+      ]},
+      { id: "od", name: "ORGANIZATIONAL ANALYSIS AND DESIGN (OD)", files: [
+        { name: "Chapter 1", driveId: "1thqy8nJl2tzAcXb0FCNUSbkzSIy94GuV" },
+        { name: "Chapter 2", driveId: "1MQVfHgsF1yY6C_g4A4ImmBykc4JXkyE8" },
+        { name: "Chapter 3", driveId: "1IwqwrOtthxUOaBxLsRMZRa7phmxYBBVB" }
+      ]},
+      { id: "ib", name: "International Business (IB)", files: [
+        { name: "Chapter 1", driveId: "1XBRZnGcao0d5Ra-DFHYwFVwZCEDZ65S_" },
+        { name: "Chapter 2", driveId: "1MHmS-2cUEx_WFlbNBKwt8RUzQDrOVrsY" },
+        { name: "Chapter 3", driveId: "1-wVtG-hn4xGwHW9Yln0PbbHllrH0QRZw" }
+      ]}
+    ]
+  }]
 };
-
 /* ========================================================= */
 
-let state = { batch: null, subject: null };
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gid = v => { v = String(v).trim(); const m = v.match(/\/d\/([\w-]+)/) || v.match(/[?&]id=([\w-]+)/) || v.match(/^([\w-]+)/); return m ? m[1] : ""; };
+const store = {
+  get(k, d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? d; }catch{ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} }
+};
+const ic = p => `<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+const I = {
+  folder: ic('<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
+  book: ic('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'),
+  file: ic('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>'),
+  eye: ic('<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>'),
+  clip: ic('<path d="M21.4 11.05 12.53 19.9a5 5 0 0 1-7.07-7.07l8.5-8.5a3.5 3.5 0 0 1 4.95 4.95l-8.5 8.5a2 2 0 1 1-2.83-2.83l7.79-7.79"/>'),
+  down: ic('<path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16"/>'),
+  ext: ic('<path d="M15 3h6v6M10 14 21 3M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>'),
+  x: ic('<path d="M18 6 6 18M6 6l12 12"/>'),
+  search: ic('<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'),
+  moon: ic('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'),
+  sun: ic('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>')
+};
+const TYPES = { lec:["محاضرة","LEC"], quiz:["كويز","QUIZ"], sum:["ملخص","SUM"], rec:["تسجيل","REC"] };
+const dl = id => `https://drive.google.com/uc?export=download&id=${id}`;
 
-const el = (sel) => document.querySelector(sel);
-const crumbsEl = el("#crumbs");
+let state = { batch:null, subject:null };
+let seen = store.get("seen", []);
 
-function iconFolder(){
-  return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`;
-}
-function iconBook(){
-  return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`;
-}
-function iconFile(){
-  return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>`;
-}
-function iconEye(){
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-}
-function iconPaperclip(){
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.05 12.53 19.9a5 5 0 0 1-7.07-7.07l8.5-8.5a3.5 3.5 0 0 1 4.95 4.95l-8.5 8.5a2 2 0 1 1-2.83-2.83l7.79-7.79"/></svg>`;
-}
-function iconDownload(){
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16"/></svg>`;
-}
+/* ---------- ثابت الواجهة ---------- */
+$("#logo").innerHTML = I.folder;
+$("#sIco").innerHTML = I.search;
+$("#viewerClose").innerHTML = I.x;
+$("#attachClose").innerHTML = I.x;
 
+/* ---------- الوضع الليلي ---------- */
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  $("#theme").innerHTML = t === "dark" ? I.sun : I.moon;
+  $('meta[name=theme-color]').content = t === "dark" ? "#15191E" : "#2C4257";
+}
+setTheme(store.get("theme", matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+$("#theme").addEventListener("click", () => {
+  const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  setTheme(t); store.set("theme", t);
+});
+
+/* ---------- التنقل ---------- */
 function showScreen(id){
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  el("#"+id).classList.add("active");
+  $("#" + id).classList.add("active");
+  scrollTo({ top:0 });
 }
-
 function renderCrumbs(){
-  let parts = [{label:"الاقسام", action:() => goBatches()}];
-  if(state.batch) parts.push({label: state.batch.name, action: () => goSubjects(state.batch.id)});
-  if(state.subject) parts.push({label: state.subject.name, action: null});
-
-  crumbsEl.innerHTML = parts.map((p, i) => {
-    const isLast = i === parts.length - 1;
-    const sep = i > 0 ? `<span class="sep">›</span>` : "";
-    return `${sep}<span class="crumb ${isLast ? "current" : ""}" data-i="${i}">${p.label}</span>`;
+  const parts = [{ label:"الأقسام", h:"" }];
+  if(state.batch) parts.push({ label:state.batch.name, h:state.batch.id });
+  if(state.subject) parts.push({ label:state.subject.name, h:null });
+  $("#crumbs").innerHTML = parts.map((p, i) => {
+    const last = i === parts.length - 1;
+    return (i ? `<span class="sep">›</span>` : "") +
+      `<span class="crumb${last ? " current" : ""}" ${p.h !== null && !last ? `data-h="${p.h}" role="link" tabindex="0"` : ""}>${esc(p.label)}</span>`;
   }).join("");
+}
+$("#crumbs").addEventListener("click", e => {
+  const c = e.target.closest("[data-h]");
+  if(c) location.hash = c.dataset.h;
+});
 
-  crumbsEl.querySelectorAll(".crumb").forEach((elm, i) => {
-    elm.addEventListener("click", () => { if(parts[i].action) parts[i].action(); });
-  });
+function cards(list, icon, metaFn, target){
+  target.innerHTML = list.map((x, n) => `
+    <div class="card" role="button" tabindex="0" data-id="${x.id}" style="--n:${n}">
+      <div class="card-inner"><div class="icon">${icon}</div><div class="name">${esc(x.name)}</div><div class="meta">${metaFn(x)}</div></div>
+    </div>`).join("");
+}
+function bindCards(target, fn){
+  target.onclick = e => { const c = e.target.closest(".card"); if(c) fn(c.dataset.id); };
+  target.onkeydown = e => { const c = e.target.closest(".card"); if(c && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); fn(c.dataset.id); } };
 }
 
 function goBatches(){
-  state.batch = null; state.subject = null;
+  state = { batch:null, subject:null };
   renderCrumbs();
+  const last = store.get("last", null);
+  $("#resume").innerHTML = last ? `<a class="resume" href="#${last.h}">${I.eye.replace("<svg", '<svg width="18" height="18"')}<span>تابع من حيث توقفت: <b>${esc(last.n)}</b></span></a>` : "";
+  cards(DATA.batches, I.folder, b => `${b.subjects.length} مادة`, $("#batchGrid"));
+  bindCards($("#batchGrid"), id => location.hash = id);
   showScreen("screen-batches");
 }
-
-function goSubjects(batchId){
-  const batch = DATA.batches.find(b => b.id === batchId);
-  state.batch = batch; state.subject = null;
+function goSubjects(batch){
+  state = { batch, subject:null };
   renderCrumbs();
-  el("#subjectsTitle").textContent = batch.name;
-  const grid = el("#subjectGrid");
-  grid.innerHTML = batch.subjects.map(s => `
-    <div class="card" tabindex="0" data-id="${s.id}">
-      <div class="card-inner">
-        <div class="icon">${iconBook()}</div>
-        <div class="name">${s.name}</div>
-        <div class="meta">${s.files.length} ملف</div>
-      </div>
-    </div>
-  `).join("");
-  grid.querySelectorAll(".card").forEach(c => {
-    c.addEventListener("click", () => goFiles(c.dataset.id));
-    c.addEventListener("keydown", e => { if(e.key === "Enter") goFiles(c.dataset.id); });
-  });
+  $("#subjectsTitle").textContent = batch.name;
+  cards(batch.subjects, I.book, s => `${s.files.length} ملف`, $("#subjectGrid"));
+  bindCards($("#subjectGrid"), id => location.hash = `${batch.id}/${id}`);
   showScreen("screen-subjects");
 }
-
-function goFiles(subjectId){
-  const subject = state.batch.subjects.find(s => s.id === subjectId);
-  state.subject = subject;
+function goFiles(batch, subject){
+  state = { batch, subject };
   renderCrumbs();
-  el("#filesTitle").textContent = subject.name;
-  el("#fileCount").innerHTML = `<strong>${subject.files.length}</strong> ملف متاح`;
-
-  const list = el("#fileList");
-  if(subject.files.length === 0){
-    list.innerHTML = `
-      <div class="empty">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-        <p>لا توجد ملفات مضافة لهذه المادة بعد</p>
-      </div>`;
-  } else {
-    list.innerHTML = subject.files.map((f, i) => {
-      const hasAttach = f.attachments && f.attachments.length > 0;
-      return `
-      <div class="file-row" data-i="${i}">
-        <div class="f-icon">${iconFile()}<span class="f-tag">PDF</span></div>
-        <div class="f-body">
-          <div class="f-name">${f.name}</div>
-          ${hasAttach ? `<div class="f-meta">${f.attachments.length} ملف إضافي مرفق</div>` : ``}
-        </div>
-        <div class="f-actions">
-          <button class="f-btn view" data-view="${i}">${iconEye()}عرض</button>
-          ${hasAttach ? `<button class="f-btn attach" data-attach="${i}"><span class="a-badge">${f.attachments.length}</span>${iconPaperclip()}تحميل</button>` : ``}
-        </div>
-      </div>`;
-    }).join("");
-
-    list.querySelectorAll("[data-view]").forEach(btn => {
-      btn.addEventListener("click", () => openViewer(subject.files[btn.dataset.view]));
-    });
-    list.querySelectorAll("[data-attach]").forEach(btn => {
-      btn.addEventListener("click", () => openAttachments(subject.files[btn.dataset.attach]));
-    });
-  }
+  $("#filesTitle").textContent = subject.name;
+  $("#fileCount").innerHTML = `<strong>${subject.files.length}</strong> ملف متاح`;
+  const items = subject.files.map((f, i) => ({ b:batch, s:subject, i }));
+  $("#fileList").innerHTML = items.length ? rows(items, false) : `<div class="empty">لا توجد ملفات مضافة لهذه المادة بعد</div>`;
   showScreen("screen-files");
 }
 
-function renderBatches(){
-  const grid = el("#batchGrid");
-  grid.innerHTML = DATA.batches.map(b => `
-    <div class="card" tabindex="0" data-id="${b.id}">
-      <div class="card-inner">
-        <div class="icon">${iconFolder()}</div>
-        <div class="name">${b.name}</div>
-        <div class="meta">${b.subjects.length} مادة</div>
+/* ---------- صفوف الملفات (مشتركة بين المادة والبحث) ---------- */
+function rows(items, showSub){
+  return items.map(({ b, s, i }, n) => {
+    const f = s.files[i], t = TYPES[f.type] || TYPES.lec, id = gid(f.driveId);
+    const na = (f.attachments || []).length, done = seen.includes(id);
+    return `
+    <div class="file-row" data-h="${b.id}/${s.id}/${i}" style="--n:${n}">
+      <div class="f-icon">${I.file}<span class="f-tag">${t[1]}</span></div>
+      <div class="f-body">
+        <div class="f-name">${esc(f.name)}</div>
+        <div class="f-meta">${showSub ? esc(s.name) + " · " : ""}${t[0]}${na ? ` · ${na} مرفق` : ""}${done ? ` · <span class="ok">✓ تم الاطلاع</span>` : ""}</div>
       </div>
-    </div>
-  `).join("");
-  grid.querySelectorAll(".card").forEach(c => {
-    c.addEventListener("click", () => goSubjects(c.dataset.id));
-    c.addEventListener("keydown", e => { if(e.key === "Enter") goSubjects(c.dataset.id); });
-  });
+      <div class="f-actions">
+        <button class="f-btn view" data-act="view">${I.eye}عرض</button>
+        <a class="f-btn" href="${dl(id)}" target="_blank" rel="noopener">${I.down}تحميل</a>
+        ${na ? `<button class="f-btn" data-act="attach">${I.clip}المرفقات</button>` : ""}
+      </div>
+    </div>`;
+  }).join("");
 }
+function fileFromHash(h){
+  const [b, s, i] = h.split("/");
+  const batch = DATA.batches.find(x => x.id === b);
+  const subject = batch && batch.subjects.find(x => x.id === s);
+  const file = subject && subject.files[i];
+  return file ? { batch, subject, file } : null;
+}
+["#fileList", "#searchList"].forEach(sel => $(sel).addEventListener("click", e => {
+  const row = e.target.closest(".file-row"), btn = e.target.closest("[data-act]");
+  if(!row || !btn) return;
+  if(btn.dataset.act === "view") location.hash = row.dataset.h;
+  else openAttachments(fileFromHash(row.dataset.h).file);
+}));
 
-/* ---------- PDF Viewer ---------- */
-const viewerOverlay = el("#viewerOverlay");
-const frame = el("#viewerFrame");
-function openViewer(file){
-  el("#viewerTitle").textContent = file.name;
-  frame.src = `https://drive.google.com/file/d/${file.driveId}/preview`;
+/* ---------- البحث ---------- */
+function runSearch(raw){
+  const q = raw.trim().toLowerCase();
+  if(!q){ route(); return; }
+  const items = [];
+  DATA.batches.forEach(b => b.subjects.forEach(s => s.files.forEach((f, i) => {
+    if((f.name + " " + s.name + " " + (TYPES[f.type] || TYPES.lec)[0]).toLowerCase().includes(q)) items.push({ b, s, i });
+  })));
+  $("#searchCount").innerHTML = `<strong>${items.length}</strong> نتيجة`;
+  $("#searchList").innerHTML = items.length ? rows(items, true) : `<div class="empty">مفيش نتائج لـ «${esc(raw.trim())}»</div>`;
+  showScreen("screen-search");
+}
+$("#q").addEventListener("input", e => runSearch(e.target.value));
+
+/* ---------- عارض الملفات ---------- */
+const viewerOverlay = $("#viewerOverlay"), frame = $("#viewerFrame");
+function openViewer(ctx, h){
+  const { file } = ctx, id = gid(file.driveId);
+  $("#viewerTitle").textContent = `${ctx.subject.name} — ${file.name}`;
+  $("#viewerActs").innerHTML =
+    `<a class="f-btn" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">${I.ext}فتح في تبويب جديد</a>` +
+    `<a class="f-btn" href="${dl(id)}" target="_blank" rel="noopener">${I.down}تحميل</a>`;
+  frame.src = `https://drive.google.com/file/d/${id}/preview`;
   viewerOverlay.classList.add("active");
+  if(!seen.includes(id)){ seen.push(id); store.set("seen", seen); }
+  store.set("last", { h, n: `${ctx.subject.name} — ${file.name}` });
 }
+function hideViewer(){ viewerOverlay.classList.remove("active"); frame.src = "about:blank"; }
 function closeViewer(){
-  viewerOverlay.classList.remove("active");
-  frame.src = "";
+  if(!viewerOverlay.classList.contains("active")) return;
+  hideViewer();
+  const h = location.hash.slice(1).split("/").slice(0, 2).join("/");
+  history.replaceState(null, "", "#" + h);
+  route();
 }
-el("#viewerClose").addEventListener("click", closeViewer);
-viewerOverlay.addEventListener("click", (e) => { if(e.target === viewerOverlay) closeViewer(); });
+$("#viewerClose").addEventListener("click", closeViewer);
+viewerOverlay.addEventListener("click", e => { if(e.target === viewerOverlay) closeViewer(); });
 
-/* ---------- الملفات الإضافية ---------- */
-const attachOverlay = el("#attachOverlay");
+/* ---------- المرفقات ---------- */
+const attachOverlay = $("#attachOverlay");
 function openAttachments(file){
-  el("#attachTitle").textContent = `الملفات الإضافية — ${file.name}`;
-  el("#attachList").innerHTML = file.attachments.map(a => `
-    <div class="attach-row">
-      <div class="a-name">
-        <span class="a-icon">${iconFile()}</span>
-        <span>${a.name}</span>
-      </div>
-      <a class="a-download" href="https://drive.google.com/uc?export=download&id=${a.driveId}" target="_blank" rel="noopener">
-        ${iconDownload()}تحميل
-      </a>
-    </div>
-  `).join("");
+  $("#attachTitle").textContent = `المرفقات — ${file.name}`;
+  $("#attachList").innerHTML = file.attachments.map(a => `
+    <div class="attach-row"><span>${esc(a.name)}</span>
+      <span class="m-acts">
+        <a class="f-btn" href="https://drive.google.com/file/d/${gid(a.driveId)}/view" target="_blank" rel="noopener">${I.ext}فتح</a>
+        <a class="f-btn view" href="${dl(gid(a.driveId))}" target="_blank" rel="noopener">${I.down}تحميل</a>
+      </span></div>`).join("");
   attachOverlay.classList.add("active");
 }
-function closeAttachments(){
-  attachOverlay.classList.remove("active");
+const closeAttachments = () => attachOverlay.classList.remove("active");
+$("#attachClose").addEventListener("click", closeAttachments);
+attachOverlay.addEventListener("click", e => { if(e.target === attachOverlay) closeAttachments(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape"){ closeAttachments(); closeViewer(); } });
+
+/* ---------- الراوتر (روابط مباشرة + زرار الرجوع) ---------- */
+function route(){
+  closeAttachments();
+  seen = store.get("seen", []);
+  const h = location.hash.slice(1), [b, s] = h.split("/");
+  const batch = DATA.batches.find(x => x.id === b);
+  const subject = batch && batch.subjects.find(x => x.id === s);
+  if(!batch) goBatches();
+  else if(!subject) goSubjects(batch);
+  else goFiles(batch, subject);
+  const ctx = subject && fileFromHash(h);
+  if(ctx) openViewer(ctx, h); else hideViewer();
 }
-el("#attachClose").addEventListener("click", closeAttachments);
-attachOverlay.addEventListener("click", (e) => { if(e.target === attachOverlay) closeAttachments(); });
-
-document.addEventListener("keydown", (e) => {
-  if(e.key === "Escape"){ closeViewer(); closeAttachments(); }
-});
-
-/* ---------- init ---------- */
-renderBatches();
-renderCrumbs();
+window.addEventListener("hashchange", () => { $("#q").value = ""; route(); });
+route();
 </script>
-
 </body>
 </html>
